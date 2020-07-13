@@ -1,0 +1,15 @@
+.spaceValue{
+    text-align: center;
+    color: black;
+    /*font-weight: bold;*/
+}
+
+/* .table{
+    border-color: black;
+    border-width: 3px;
+} */
+
+#markRed{
+    color: red;
+}
+

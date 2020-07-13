@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- 如果要改花哨一点建议直接重写 -->
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>FreeSpace on Network Drive</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/FreeSpace.css' %}">
+    <!-- 引入 echarts.js -->
+    <script type="text/javascript" src="/static/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/echarts-pie.min.js"></script>
+</head>
+
+<body>
+{% include 'nav.html' %}
+<style type="text/css">
+
+    .fl-table {
+        margin: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        border: none;
+        border-collapse: collapse;
+        max-width: 100%;
+        white-space: nowrap;
+        word-break: keep-all;
+    }
+
+    .fl-table th {
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .fl-table tr {
+        text-align: center;
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+
+    /*.fl-table tr:hover td {*/
+    /*    background: #4682B4  ;*/
+    /*    !*color: #FF0000;*!*/
+    /*}*/
+
+    .fl-table td, .fl-table th {
+        border-style: none;
+        border-top: 1px solid #dbdbdb;
+        border-left: 1px solid #dbdbdb;
+        border-bottom: 3px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        padding: .2em .55em;
+        font-size: 15px;
+    }
+
+    .fl-table td {
+        border-style: none;
+        font-size: 13px;
+        vertical-align: center;
+        border-bottom: 1px solid #dbdbdb;
+        border-left: 1px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        height: 20px;
+    }
+
+    .fl-table tr:nth-child(even) {
+        background: #F5F5F5;
+    }
+
+    .fl-table tr:nth-child(odd) {
+        background: #A9A9A9;
+    }
+
+</style>
+
+<div>
+    <h1 class="title" style="font-size: 26px; font-weight:bold; text-align:center"> Overview of the Disk Usage</h1>
+    <!--   IsilonSZH1使用情况     -->
+    <div class="fl-table">
+        <table border="1" align="center">
+            <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center"> IsilonSZH1 </h2>
+            <tr>
+                <th>Total Space</th>
+                <th>Used Space</th>
+                <th>Free Space</th>
+                <th>Unused Percentage</th>
+                <th>TimeScanned</th>
+            </tr>
+            <tr>
+                <td><p class="spaceValue">{{context.Total_1}}</p></td>
+                <td><p class="spaceValue">{{context.Used_1}}</p></td>
+                <td><p class="spaceValue" id="markRed">{{context.Free_1}}</p></td>
+                <td><p class="spaceValue" id="markRed">{{context.Percentage_1}}%</p></td>
+                <td><p class="spaceValue">{{context.curTime}}</p></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--   IsilonSZH2使用情况     -->
+    <div class="fl-table">
+        <table border="1" align="center">
+            <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center">IsilonSZH2</h2>
+            <tr>
+                <th>Total Space</th>
+                <th>Used Space</th>
+                <th>Free Space</th>
+                <th>Unused Percentage</th>
+                <th>TimeScanned</th>
+            </tr>
+            <tr>
+                <td><p class="spaceValue">{{context.Total_2}}</p></td>
+                <td><p class="spaceValue">{{context.Used_2}}</p></td>
+                <td><p class="spaceValue" id="markRed">{{context.Free_2}}</p></td>
+                <td><p class="spaceValue" id="markRed">{{context.Percentage_2}}%</p></td>
+                <td><p class="spaceValue">{{context.curTime}}</p></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--All Other Drives Details-->
+    <div class="fl-table">
+        <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center"> 这里要取个名字 </h2>
+        <table border="1" align="center">
+            <tr>
+                <th>Location of Directories</th>
+                <th>Dir Space</th>
+                <th>Percentage</th>
+                <th>TimeScanned</th>
+            </tr>
+            {% for drive,value in context.Drives.items %}
+            <tr>
+                <td>
+                    {{drive}}
+                </td>
+                <!--Location-->
+                <td>
+                    <p class="spaceValue" id="markRed">{{value.0}}</p>
+                </td>
+                <td>
+                    <p class="spaceValue" id="markRed">{{value.1}}</p>
+                </td>
+                <td>
+                    <p class="spaceValue">{{value.2}}</p>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!--   05_Radar 使用情况     -->
+    <div>
+        <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center">
+            <a href="/1"> 05_Radar_ER 文件夹使用情况 </a>
+        </h2>
+    </div>
+    <div align="center">
+        <script type="text/javascript">
+            {{data | safe}}
+        </script>
+        </div>
+
+</div>
+
+<footer>
+    <div class="footer" style="font-size: 12px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;margin-top: 0px;">
+        <div class="contactInfo" style="text-align: right; padding-right: 50px;">
+            <p class="contact_us" style="margin-top: 35px;text-align: right; padding-right: 60px;">Contact us:</p>
+            <p>ying.shen2@cn.bosch.com</p>
+            <p>Zhongjie.WEI@cn.bosch.com</p>
+        </div>
+        <p class="copyright" style="padding-left: 50px;">Copyright © 2020 CC-DA/ESS4-CN. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

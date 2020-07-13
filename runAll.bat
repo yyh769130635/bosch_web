@@ -1,0 +1,2 @@
+start periodicallyRunAnalyze.bat
+start startWeb.bat
