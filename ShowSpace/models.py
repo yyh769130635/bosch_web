@@ -15,3 +15,12 @@ class Radar_05(models.Model):
 
     def __str__(self):
         return self.dir_name
+
+
+class networkPaths(models.Model):
+    path_id = models.AutoField(primary_key=True)
+    #需要扫描的文件路径
+    path = models.TextField()
+
+    def __str__(self):
+        return self.path
