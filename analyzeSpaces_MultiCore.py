@@ -78,7 +78,7 @@ def writeFile(path, ResultPath):  # 4
 
     fileName = os.path.join(ResultPath, fileName)
     # f = open(os.path.join(ResultPath,fileName),'a')
-
+    # 05这个文件夹单独分析
     tmp = extract_05_Radar(path)
     if tmp == []:
         path = [path]
@@ -93,7 +93,7 @@ def writeFile(path, ResultPath):  # 4
     # end = time.time()
     # print('{} spend {} seconds'.format(fileName,round(end-start,2))) #Calculate time used
 
-
+# 调整路径格式
 def formatPaths(paths, symbol):  # 3
     '''
     :param paths: list

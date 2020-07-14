@@ -1,0 +1,9 @@
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;145758;2020-06-16 15:59:51
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\08_report_summary;59349;2020-06-16 15:59:51
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\03_BJEV_N61;229423733094557;2020-06-16 16:01:38
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\05_Xpeng;85091101593667;2020-06-16 16:02:26
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;344302228751005;2020-06-16 16:03:13
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\06_FAW_C105;202624907134147;2020-06-16 16:03:33
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;290179843265762;2020-06-16 16:03:41
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\00_Cluster;2334236241867;2020-06-16 16:04:38
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\01_GAC;76868218546447;2020-06-16 16:07:30

@@ -197,13 +197,12 @@ def index(request):
     values2 = []
     values2.append(["Free Space", DiskUsage_2.total - diskUsage])
     values2.append(["Used Space", diskUsage])
-    # print(values2)
     c = (
-        Pie(init_opts=opts.InitOpts(width="750px", height="200px"))
-            .add("", values2, radius=["40%", "55%"],
+        Pie(init_opts=opts.InitOpts(width="800px", height="250px"))
+            .add("", values2, radius=["50%", "80%"],
                  label_opts=opts.LabelOpts(
                      position="outside",
-                     formatter="{b|{b}: } {per|{d}%}  ",
+                     formatter="{b|  {b}: } {per|{d}%}  ",
                      background_color="#FFFFFF", border_color="#000000",
                      border_width=1, border_radius=4,
                      rich={
@@ -212,9 +211,8 @@ def index(request):
                      },
                  ),
                  ).set_colors(['#A9A9A9', '#00BFFF']).set_global_opts(
-            legend_opts=opts.LegendOpts(type_="scroll", pos_left="80%", orient="vertical"), \
-            title_opts=opts.TitleOpts(title="05_Radar_ER"))
-    )
+            legend_opts=opts.LegendOpts(type_="scroll", pos_left="80%", orient="vertical"),
+        ))
 
     return render(request, 'ShowSpace/FreeSpace.html', {'context': context, 'data': c.render_embed()})
 
@@ -225,18 +223,27 @@ def index2(request):
     result = read_05_Radar2(scannedResultPath, DiskUsage_2.total)
     used = 0
     values1 = []
+    # print(result)
+    others = 0
+    # for k, v in result.items():
+    #     if v[3] < 9000000000000:
+    #         others += v[3]
+    #     else:
+    #         values1.append([k, v[3]])
+    #         used += v[1]
+    # values1.append(['others', others])
     for k, v in result.items():
         values1.append([k, v[3]])
         used += v[1]
-
-    c = (Pie().add("", values1, center=["45%", "50%"], ).set_global_opts( \
-        legend_opts=opts.LegendOpts(type_="scroll", pos_left="80%", orient="vertical"), \
-        ).set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%")))
-
-    # print(c.render_embed())
-    # print(values1)
-    return render(request, 'ShowSpace/index.html', {'result': result, 'data': c.render_embed()})
-
+    values1 = sorted(values1, key=lambda x: x[0])
+    values2 = sorted(result.items(), key=lambda result: result[0])
+    # print(values2[0])
+    c = (Pie().add("", values1, center=["40%", "50%"], is_clockwise=False).set_global_opts( \
+        legend_opts=opts.LegendOpts(type_="scroll", pos_left="85%", orient="vertical"), \
+        ).set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%", color="#000000", font_size=15))
+         .set_colors(["#000000", "#6495ED", "#90EE90", "#00FFFF", "#FFCC00", "#FFDEAD", "#FF0000", "#008B8B","#7FFFD4","#CCCC99"])
+         )
+    return render(request, 'ShowSpace/index.html', {'result': values2, 'data': c.render_embed()})
 # if __name__ == "__main__":
 #     g_scannedResultPath = './result'
 #     import os

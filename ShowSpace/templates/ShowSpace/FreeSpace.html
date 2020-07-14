@@ -9,28 +9,37 @@
     <meta name="description" content=""/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/FreeSpace.css' %}">
     <!-- 引入 echarts.js -->
-    <script type="text/javascript" src="/static/echarts.min.js"></script>
-    <script type="text/javascript" src="/static/echarts-pie.min.js"></script>
+    <script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
+<!--    <script type="text/javascript" src="/static/echarts-pie.min.js"></script>-->
 </head>
 
 <body>
 {% include 'nav.html' %}
 <style type="text/css">
-
+    .subtitle {
+        font-size: 25px;
+        font-weight: normal;
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 25px;
+    }
+    .title{
+        font-size: 30px;
+        font-weight:bold;
+        text-align:center;
+        margin-bottom: 0px;
+    }
+</style>
+<style type="text/css">
     .fl-table {
-        margin: 10px;
-        border-radius: 5px;
+        margin: 8px;
+        border-radius: 0px;
         font-size: 12px;
         border: none;
-        border-collapse: collapse;
+        /*border-collapse: collapse;*/
         max-width: 100%;
         white-space: nowrap;
         word-break: keep-all;
-    }
-
-    .fl-table th {
-        text-align: center;
-        font-size: 30px;
     }
 
     .fl-table tr {
@@ -40,52 +49,67 @@
         border-color: inherit;
     }
 
-    /*.fl-table tr:hover td {*/
-    /*    background: #4682B4  ;*/
-    /*    !*color: #FF0000;*!*/
-    /*}*/
+    .fl-table tr:hover td {
+        background: #AFEEEE;
+        /*color: #FF0000;*/
+    }
 
     .fl-table td, .fl-table th {
         border-style: none;
-        border-top: 1px solid #dbdbdb;
-        border-left: 1px solid #dbdbdb;
-        border-bottom: 3px solid #dbdbdb;
-        border-right: 1px solid #dbdbdb;
+        border-top: 0px solid #dbdbdb;
+        border-left: 0px solid #dbdbdb;
+        border-bottom: 0px solid #dbdbdb;
+        border-right: 0px solid #dbdbdb;
         padding: .2em .55em;
         font-size: 15px;
     }
 
     .fl-table td {
         border-style: none;
-        font-size: 13px;
+        font-size: 15px;
         vertical-align: center;
-        border-bottom: 1px solid #dbdbdb;
-        border-left: 1px solid #dbdbdb;
-        border-right: 1px solid #dbdbdb;
+        border-bottom: 0px solid #dbdbdb;
+        border-left: 0px solid #dbdbdb;
+        border-right: 0px solid #dbdbdb;
         height: 20px;
     }
-
-    .fl-table tr:nth-child(even) {
-        background: #F5F5F5;
+    .fl-table th {
+        border-style: none;
+        text-align: center;
+        font-weight:400;
+        font-size:18px;
+        vertical-align: center;
+        background:#3399FF;
+        /*padding-top:10px;*/
+        /*padding-bottom:10px;*/
+        /*padding-left:5px;*/
+        /*padding-right:5px;*/
+        padding: 8px;
     }
 
     .fl-table tr:nth-child(odd) {
-        background: #A9A9A9;
+        background: #87CEFA;
+    }
+
+    .fl-table tr:nth-child(even) {
+        background: #E0FFFF;
     }
 
 </style>
 
 <div>
-    <h1 class="title" style="font-size: 26px; font-weight:bold; text-align:center"> Overview of the Disk Usage</h1>
+    <h1 class="title"> Overview of the Disk Usage</h1>
     <!--   IsilonSZH1使用情况     -->
+    <div>
+        <h2 class="subtitle"> IsilonSZH1 </h2>
+    </div>
     <div class="fl-table">
-        <table border="1" align="center">
-            <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center"> IsilonSZH1 </h2>
+        <table border="0" align="center">
             <tr>
                 <th>Total Space</th>
                 <th>Used Space</th>
                 <th>Free Space</th>
-                <th>Unused Percentage</th>
+                <th>Free Percentage</th>
                 <th>TimeScanned</th>
             </tr>
             <tr>
@@ -100,13 +124,13 @@
 
     <!--   IsilonSZH2使用情况     -->
     <div class="fl-table">
-        <table border="1" align="center">
-            <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center">IsilonSZH2</h2>
+        <table border="0" align="center">
+            <h2 class="subtitle">IsilonSZH2</h2>
             <tr>
                 <th>Total Space</th>
                 <th>Used Space</th>
                 <th>Free Space</th>
-                <th>Unused Percentage</th>
+                <th>Free Percentage</th>
                 <th>TimeScanned</th>
             </tr>
             <tr>
@@ -121,8 +145,8 @@
 
     <!--All Other Drives Details-->
     <div class="fl-table">
-        <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center"> 这里要取个名字 </h2>
-        <table border="1" align="center">
+        <h2 class="subtitle"> 这里要取个名字 </h2>
+        <table border="0" align="center">
             <tr>
                 <th>Location of Directories</th>
                 <th>Dir Space</th>
@@ -152,15 +176,15 @@
 
     <!--   05_Radar 使用情况     -->
     <div>
-        <h2 class="subtitle" style="font-size: 18px; font-weight:bold;text-align:center">
-            <a href="/1"> 05_Radar_ER 文件夹使用情况 </a>
+        <h2 class="subtitle">
+            <a href="/1" style="text-decoration:none"> 05_Radar_ER 文件夹使用情况 </a>
         </h2>
     </div>
     <div align="center">
         <script type="text/javascript">
             {{data | safe}}
         </script>
-        </div>
+    </div>
 
 </div>
 
@@ -171,6 +195,7 @@
             <p class="contact_us" style="margin-top: 35px;text-align: right; padding-right: 60px;">Contact us:</p>
             <p>ying.shen2@cn.bosch.com</p>
             <p>Zhongjie.WEI@cn.bosch.com</p>
+            <p>fixed-term.Peter.Yang2@cn.bosch.com</p>
         </div>
         <p class="copyright" style="padding-left: 50px;">Copyright © 2020 CC-DA/ESS4-CN. All Rights Reserved.</p>
     </div>
