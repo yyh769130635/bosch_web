@@ -15,8 +15,10 @@ import datetime
 # 扫描文件的结果
 g_scannedResultPath = './result'
 # 在G盘
-g_Disk_path_1 = r'\\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\01_GEN4'
-g_Disk_path_2 = '//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/05_Radar_ER'
+# g_Disk_path_1 = r'\\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\01_GEN4'
+# g_Disk_path_2 = '//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/05_Radar_ER'
+g_Disk_path_1 = r"D:\\"
+g_Disk_path_2 = r"C:\\"
 
 
 # 换算成TB
@@ -235,14 +237,26 @@ def index2(request):
     for k, v in result.items():
         values1.append([k, v[3]])
         used += v[1]
-    values1 = sorted(values1, key=lambda x: x[0])
-    values2 = sorted(result.items(), key=lambda result: result[0])
-    # print(values2[0])
-    c = (Pie().add("", values1, center=["40%", "50%"], is_clockwise=False).set_global_opts( \
-        legend_opts=opts.LegendOpts(type_="scroll", pos_left="85%", orient="vertical"), \
-        ).set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%", color="#000000", font_size=15))
-         .set_colors(["#000000", "#6495ED", "#90EE90", "#00FFFF", "#FFCC00", "#FFDEAD", "#FF0000", "#008B8B","#7FFFD4","#CCCC99"])
-         )
+    values11 = sorted(values1, key=lambda x: x[0]) #按照名字排序的
+    values2 = sorted(result.items(), key=lambda result: result[0]) #按照名字排序
+    inner_data_pair = [i for i in sorted(values1, key=lambda x: -x[1])][:3] #按照大小排序
+    print(inner_data_pair)
+    c = (Pie().add("", values11, center=["50%", "50%"], is_clockwise=False,radius=["50%","70%"])
+        .set_global_opts(
+        legend_opts=opts.LegendOpts(type_="scroll", pos_left="85%", orient="vertical"),
+        )
+        .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%", color="#000000", font_size=15))
+        .set_colors(
+        ["#000000", "#6495ED", "#90EE90", "#00FFFF", "#FFCC00", "#FFDEAD", "#FF0000", "#008B8B", "#7FFFD4", "#CCCC99","#FF0000","#00FFFF","#6495ED"])
+        .add(
+        series_name="",
+        data_pair=inner_data_pair,
+        radius=[0, "30%"],
+        label_opts=opts.LabelOpts(position="inner"),
+        center=["50%", "50%"],
+    )
+    )
+
     return render(request, 'ShowSpace/index.html', {'result': values2, 'data': c.render_embed()})
 # if __name__ == "__main__":
 #     g_scannedResultPath = './result'
