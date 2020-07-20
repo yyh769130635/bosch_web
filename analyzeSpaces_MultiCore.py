@@ -62,11 +62,16 @@ def extract_05_Radar(path):
 
 # 创建result文件夹
 def checkResultPath(ResultPath):
+    # result文件夹是否存在，存在就清空之前的结果
     if os.path.isdir(ResultPath):
+        print("dictionary already exists !")
         for i in os.listdir(ResultPath):
             os.remove(os.path.join(ResultPath, i))
+        print("empty the dictionary successfully !")
+    # 不存在创建目录
     else:
         os.mkdir(ResultPath)
+        print("create the dictionary successfully !")
 
 
 # 这个多进程跑的，输入所有要扫描的文件夹，输出到result文件夹中
@@ -92,6 +97,7 @@ def writeFile(path, ResultPath):  # 4
 
     # end = time.time()
     # print('{} spend {} seconds'.format(fileName,round(end-start,2))) #Calculate time used
+
 
 # 调整路径格式
 def formatPaths(paths, symbol):  # 3

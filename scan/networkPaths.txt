@@ -8,5 +8,6 @@
 \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\VSE
 \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CNE 
 \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\cluster
+\\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER
 \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_APP
 \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_Validation

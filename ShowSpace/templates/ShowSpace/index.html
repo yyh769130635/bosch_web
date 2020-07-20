@@ -111,9 +111,10 @@ p1{padding:0px; margin:0px;}
     <table border="0" align="center">
         <tr>
             <th>Sub-Directories under 05_Radar</th>
-            <th>Dir Space</th>
+            <th>Used Space</th>
             <th>Percentage</th>
             <th>TimeScanned</th>
+            <th>Details link</th>
         </tr>
 
         {% for value in result %}
@@ -123,13 +124,16 @@ p1{padding:0px; margin:0px;}
             </td>
             <!--Location-->
             <td>
-                <p class="spaceValue" id="markRed">{{value.1.0}}</p>
+                <p class="spaceValue" id="markRed">{{value.1.0}} TB</p>
             </td>
             <td>
-                <p class="spaceValue" id="markRed">{{value.1.1}}</p>
+                <p class="spaceValue" id="markRed">{{value.1.1}}%</p>
             </td>
             <td>
                 <p class="spaceValue">{{value.1.2}}</p>
+            </td>
+            <td>
+                <img src="/static/img/link2.jpg" alt="details" width="25px" height="25px" />
             </td>
         </tr>
         {% endfor %}
