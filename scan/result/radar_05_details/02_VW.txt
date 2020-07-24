@@ -1,0 +1,12 @@
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;avi;38458;72241007812636;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;zip;36297;59138374239559;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;mf4;73636;36229030724039;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;RIF;73593;337995326036488;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;htm;489;127360959;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;others;162814;155488038407137;2020-07-21 11:17:59
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;avi;38459;72241049103310;2020-07-24 10:42:34
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;zip;36297;59138374239559;2020-07-24 10:42:34
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;mf4;117326;39211939492414;2020-07-24 10:42:34
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;RIF;73593;337995326036488;2020-07-24 10:42:34
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;htm;491;127418925;2020-07-24 10:42:34
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW;others;178404;155506522649011;2020-07-24 10:42:34

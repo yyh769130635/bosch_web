@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<!-- 如果要改花哨一点建议直接重写 -->
+{% extends 'base.html' %}
 {% load static %}
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>FreeSpace on Network Drive</title>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/FreeSpace.css' %}">
-    <!-- 引入 echarts.js -->
-    <script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
-<!--    <script type="text/javascript" src="/static/echarts-pie.min.js"></script>-->
-</head>
 
-<body>
-{% include 'nav.html' %}
+{% block head %}
+<meta charset="utf-8"/>
+<title>FreeSpace on Network Drive</title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<!-- 引入 css -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+<!-- 引入 echarts.js -->
+<script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
+<script type="text/javascript2" src="{% static 'echarts-guage.min.js' %}"></script>
+<!--    <script type="text/javascript" src="/static/echarts-pie.min.js"></script>-->
+{% endblock %}
+
+
+{% block body %}
+<!--title style-->
 <style type="text/css">
     .subtitle {
         font-size: 25px;
         font-weight: normal;
         text-align: center;
-        margin-top: 30px;
-        margin-bottom: 25px;
-    }
-    .title{
-        font-size: 30px;
-        font-weight:bold;
-        text-align:center;
+        margin-top: 0px;
         margin-bottom: 0px;
     }
 </style>
+<!--table style-->
 <style type="text/css">
     .fl-table {
         margin: 8px;
         border-radius: 0px;
         font-size: 12px;
         border: none;
-        /*border-collapse: collapse;*/
+        border-collapse: collapse;
         max-width: 100%;
         white-space: nowrap;
         word-break: keep-all;
@@ -45,23 +43,12 @@
     .fl-table tr {
         text-align: center;
         display: table-row;
-        vertical-align: inherit;
-        border-color: inherit;
+        /*vertical-align: inherit;*/
+        /*border-color: inherit;*/
     }
 
     .fl-table tr:hover td {
         background: #AFEEEE;
-        /*color: #FF0000;*/
-    }
-
-    .fl-table td, .fl-table th {
-        border-style: none;
-        border-top: 0px solid #dbdbdb;
-        border-left: 0px solid #dbdbdb;
-        border-bottom: 0px solid #dbdbdb;
-        border-right: 0px solid #dbdbdb;
-        padding: .2em .55em;
-        font-size: 15px;
     }
 
     .fl-table td {
@@ -72,18 +59,16 @@
         border-left: 0px solid #dbdbdb;
         border-right: 0px solid #dbdbdb;
         height: 20px;
+        padding: 8px;
     }
+
     .fl-table th {
         border-style: none;
         text-align: center;
-        font-weight:400;
-        font-size:18px;
+        font-weight: 400;
+        font-size: 15px;
         vertical-align: center;
-        background:#3399FF;
-        /*padding-top:10px;*/
-        /*padding-bottom:10px;*/
-        /*padding-left:5px;*/
-        /*padding-right:5px;*/
+        background: #3399FF;
         padding: 8px;
     }
 
@@ -97,11 +82,14 @@
 
 </style>
 
-<div>
-    <h1 class="title"> Overview of the Disk Usage</h1>
+<div class="container page-header">
+    <h1 style="text-align: center; margin-top: -25px"> Overview of the Disk Usage</h1>
+</div>
+
+<div class="col-md-6">
     <!--   IsilonSZH1使用情况     -->
     <div>
-        <h2 class="subtitle"> IsilonSZH1 </h2>
+        <h2 class="subtitle"><a href="/1" style="color:#1552ff">IsilonSZH1</a></h2>
     </div>
     <div class="fl-table">
         <table border="0" align="center">
@@ -109,96 +97,59 @@
                 <th>Total Space</th>
                 <th>Used Space</th>
                 <th>Free Space</th>
-                <th>Free Percentage</th>
+                <th>Used Percentage</th>
                 <th>Scanned Time</th>
             </tr>
             <tr>
-                <td><p class="spaceValue">{{isilon1.Total}}</p></td>
-                <td><p class="spaceValue">{{isilon1.Used}}</p></td>
-                <td><p class="spaceValue" id="markRed">{{isilon1.Free}}</p></td>
-                <td><p class="spaceValue" id="markRed">{{isilon1.Percentage}}%</p></td>
-                <td><p class="spaceValue">{{isilon1.time}}</p></td>
+                <td>{{isilon1.total}}TB</td>
+                <td>{{isilon1.used}}TB</td>
+                <td style="color: #ff1d12">{{isilon1.free}}TB</td>
+                <td style="color: #ff1d12">{{isilon1.percentage}}</td>
+                <td>{{isilon1.scan_date}}</td>
             </tr>
         </table>
     </div>
-
-    <!--   IsilonSZH2使用情况     -->
-    <div class="fl-table">
-        <table border="0" align="center">
-            <h2 class="subtitle">IsilonSZH2</h2>
-            <tr>
-                <th>Total Space</th>
-                <th>Used Space</th>
-                <th>Free Space</th>
-                <th>Free Percentage</th>
-                <th>Scanned Time</th>
-            </tr>
-            <tr>
-                <td><p class="spaceValue">{{isilon2.Total}}</p></td>
-                <td><p class="spaceValue">{{isilon2.Used}}</p></td>
-                <td><p class="spaceValue" id="markRed">{{isilon2.Free}}</p></td>
-                <td><p class="spaceValue" id="markRed">{{isilon2.Percentage}}%</p></td>
-                <td><p class="spaceValue">{{isilon2.time}}</p></td>
-            </tr>
-        </table>
-    </div>
-
-    <!--All Other Drives Details-->
-    <div class="fl-table">
-        <h2 class="subtitle"> 这里要取个名字 </h2>
-        <table border="0" align="center">
-            <tr>
-                <th>Location of Directories</th>
-                <th>Dir Space</th>
-                <th>Percentage</th>
-                <th>TimeScanned</th>
-            </tr>
-            {% for drive,value in context.Drives.items %}
-            <tr>
-                <td>
-                    {{drive}}
-                </td>
-                <!--Location-->
-                <td>
-                    <p class="spaceValue" id="markRed">{{value.0}}</p>
-                </td>
-                <td>
-                    <p class="spaceValue" id="markRed">{{value.1}}</p>
-                </td>
-                <td>
-                    <p class="spaceValue">{{value.2}}</p>
-                </td>
-
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-
-    <!--   05_Radar 使用情况     -->
-    <div>
-        <h2 class="subtitle">
-            <a href="/1" style="text-decoration:none"> 05_Radar_ER 文件夹使用情况 </a>
-        </h2>
-    </div>
-    <div align="center">
-        <script type="text/javascript">
-            {{data | safe}}
+    <!--   Isilon1 使用情况     -->
+    <div align="center" style="margin-top:-30px; margin-bottom: -80px">
+        <script type="text/javascript2">
+            {{data1 | safe}}
         </script>
     </div>
+</div>
+
+<div class="col-md-6">
+    <!--   IsilonSZH2使用情况     -->
+    <div>
+        <h2 class="subtitle"><a href="/2" style="color:#1552ff">IsilonSZH2</a></h2>
+    </div>
+    <div class="fl-table">
+
+        <table border="0" align="center">
+            <tr>
+                <th>Total Space</th>
+                <th>Used Space</th>
+                <th>Free Space</th>
+                <th>Used Percentage</th>
+                <th>Scanned Time</th>
+            </tr>
+            <tr>
+                <td>{{isilon2.total}}TB</td>
+                <td>{{isilon2.used}}TB</td>
+                <td style="color: #ff1d12">{{isilon2.free}}TB</td>
+                <td style="color: #ff1d12">{{isilon2.percentage}}</td>
+                <td>{{isilon2.scan_date}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--   Isilon1 使用情况     -->
+    <div align="center" style="margin-top:-30px; margin-bottom: -80px">
+        <script type="text/javascript2">
+            {{data2 | safe}}
+        </script>
+    </div>
+</div>
+
 
 </div>
 
-<footer>
-    <div class="footer" style="font-size: 12px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;margin-top: 0px;">
-        <div class="contactInfo" style="text-align: right; padding-right: 50px;">
-            <p class="contact_us" style="margin-top: 35px;text-align: right; padding-right: 60px;">Contact us:</p>
-            <p>ying.shen2@cn.bosch.com</p>
-            <p>Zhongjie.WEI@cn.bosch.com</p>
-            <p>fixed-term.Peter.Yang2@cn.bosch.com</p>
-        </div>
-        <p class="copyright" style="padding-left: 50px;">Copyright © 2020 CC-DA/ESS4-CN. All Rights Reserved.</p>
-    </div>
-</footer>
-</body>
-</html>
+{% endblock %}

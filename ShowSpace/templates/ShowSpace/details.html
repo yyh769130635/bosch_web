@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<meta charset="utf-8"/>
+<title>Folder {{folder_name}} Details</title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<!-- 引入 css -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+<!-- 引入 echarts.js -->
+<script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
+<script type="text/javascript2" src="{% static 'echarts-guage.min.js' %}"></script>
+
+{% endblock %}
+
+<div>
+    {% block body %}
+    <style type="text/css">
+        .subtitle {
+            font-size: 25px;
+            font-weight: normal;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <!--table style-->
+    <style type="text/css">
+        .yyh-table {
+            margin: 8px;
+            border-radius: 0px;
+            font-size: 12px;
+            border: none;
+            max-width: 100%;
+            white-space: nowrap;
+            word-break: keep-all;
+        }
+
+        .yyh-table tr {
+            text-align: center;
+            display: table-row;
+            border-color: inherit;
+        }
+
+        .yyh-table tr:hover td {
+            background: #AFEEEE;
+        }
+
+        .yyh-table td {
+            border-style: none;
+            text-align: center;
+            font-size: 15px;
+            vertical-align: central;
+            border-bottom: 0px solid #dbdbdb;
+            border-left: 1px solid #dbdbdb;
+            border-right: 1px solid #dbdbdb;
+            height: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        .yyh-table th {
+            border-style: none;
+            text-align: center;
+            font-weight: 400;
+            font-size: 18px;
+            vertical-align: center;
+            background: #3399FF;
+            border-left: 1px solid #dbdbdb;
+            border-right: 1px solid #dbdbdb;
+            padding: 8px;
+        }
+
+        .yyh-table tr:nth-child(odd) {
+            background: #87CEFA;
+        }
+
+        .yyh-table tr:nth-child(even) {
+            background: #E0FFFF;
+        }
+
+    </style>
+
+    <div class="container page-header">
+        <h1 style=" text-align: center; margin-top: -25px">Folder {{folder_name}} Details</h1>
+    </div>
+
+    <div>
+        <div class="col-md-6">
+            <div><h3 style="text-align:center;margin-bottom: 20px">File Types Details</h3></div>
+            <div class="yyh-table">
+                <table border="0" align="center">
+                    <tr>
+                        <th>File Types</th>
+                        <th>Numbers</th>
+                        <th>Size</th>
+                        <th>TimeScanned</th>
+                    </tr>
+
+                    {% for value in data %}
+                    <tr>
+                        <td>{{value.0}}</td>
+                        <td>{{value.1}}</td>
+                        <td>{{value.2}}TB</td>
+                        <td>{{value.3}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div><h3 style="text-align:center;">Occupancy Rate</h3></div>
+            <div align="center" style="margin-top: 50px">
+                <script type="text/javascript">
+                    {{data2 | safe}}
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div  class="col-md-12">
+            <div><h3 style="text-align: center; margin-top: 30px; margin-bottom: -10px">
+                Projects {{folder_name}} Disk-Usage Trends
+            </h3></div>
+            <div align="center" style="margin-top: 50px">
+                <script type="text/javascript">
+                    {{temp | safe}}
+                </script>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

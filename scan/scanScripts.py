@@ -9,9 +9,11 @@ import datetime
 
 # ------------Variables---------------#
 extendMaxLengthSymbol = r'\\?\UNC'
-flag = 1  # 1表示真实环境，0为test
-file_Format = ("avi", "zip", "mf4", "RIF", "htm")
-# file_Format = ('py', 'html', 'bat', 'css', 'ipynb')
+flag = 0  # 1表示真实环境，0为test
+# file_Format = ("avi", "zip", "mf4", "RIF", "htm")
+
+file_Format = ('py', 'html', 'bat', 'css', 'ipynb')
+
 
 # ------------/Variables--------------#
 
@@ -133,8 +135,9 @@ def scan_files(directory):
     # 保存扫描整个folder的信息{path,文件夹大小（GB），扫描日期，扫描时长}
     end = time.time()
     with open(r".\result\time_record.txt", "a+") as f2:
-        t = datetime.datetime.now().strftime('%F %T')
-        f2.write(directory + ";" + str(fold_size // 1024 // 1024 // 1024) + "GB;" + str(t) +
+        # t = datetime.datetime.now().strftime('%F %T')
+        t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # "%Y-%m-%d %H:%M:%S"
+        f2.write(directory + ";" + str(fold_size) + ";" + t +
                  ";" + str((end - start) // 60) + "\n")
 
     print("folder: {} size: {}GB ,scan time:{} min".format(result_name, (fold_size // 1024 // 1024 // 1024),
@@ -143,13 +146,59 @@ def scan_files(directory):
     # 文件夹的具体信息{文件夹，文件格式，文件数量，文件大小（GB），扫描时间}
     with open(r".\result\radar_05_details\{}.txt".format(result_name), 'a+') as f:
         for i in range(len(file_Format)):
-            t = datetime.datetime.now().strftime('%F %T')
+            # t = datetime.datetime.now().strftime('%F %T')
+            t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(directory + ";" + str(file_Format[i]) + ";" + str(cnt[i]) + ";" +
-                    str(size[i] // 1024 // 1024 // 1024) + "GB;" + str(t) + "\n")
+                    str(size[i]) + ";" + t + "\n")
         f.write(
-            directory + ";others;" + str(others_cnt) + ";" + str(others_size) + ";" + str(t) + "\n")
+            directory + ";others;" + str(others_cnt) + ";" + str(
+                others_size) + ";" + t + "\n")
 
-        # return cnt, size
+
+def scan_files_test(directory):
+    start = time.time()
+    cnt = [0, 0, 0, 0, 0]
+    size = [0, 0, 0, 0, 0]
+    others_size = 0
+    others_cnt = 0
+    fold_size = 0
+    fold_cnt = 0
+    global file_Format
+    for root, sub_dirs, Files in os.walk(directory):
+        for special_file in Files:
+            temp = special_file.split('.')[-1]
+            if temp in file_Format:
+                index = file_Format.index(temp)
+                cnt[index] += 1
+                size[index] += getsize(os.path.join(root, special_file))
+            else:
+                others_cnt += 1
+                others_size += getsize(os.path.join(root, special_file))
+            fold_size += getsize(os.path.join(root, special_file))
+            fold_cnt += 1
+    result_name = directory.split("\\")[-1]
+
+    # 保存扫描整个folder的信息{path,文件夹大小（GB），扫描日期，扫描时长}
+    end = time.time()
+    with open(r".\test_result\time_record.txt", "a+") as f2:
+        # t = datetime.datetime.now().strftime('%F %T')
+        t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # "%Y-%m-%d %H:%M:%S"
+        f2.write(directory + ";" + str(fold_size) + ";" + t +
+                 ";" + str((end - start) // 60) + "\n")
+
+    print("folder: {} size: {}GB ,scan time:{} min".format(result_name, (fold_size // 1024 // 1024 // 1024),
+                                                           (end - start) // 60))
+
+    # 文件夹的具体信息{文件夹，文件格式，文件数量，文件大小（GB），扫描时间}
+    with open(r".\test_result\radar_05_details\{}.txt".format(result_name), 'a+') as f:
+        for i in range(len(file_Format)):
+            # t = datetime.datetime.now().strftime('%F %T')
+            t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(directory + ";" + str(file_Format[i]) + ";" + str(cnt[i]) + ";" +
+                    str(size[i]) + ";" + t + "\n")
+        f.write(
+            directory + ";others;" + str(others_cnt) + ";" + str(
+                others_size) + ";" + t + "\n")
 
 
 def main(files):
@@ -161,7 +210,15 @@ def main(files):
     for p in multiprocessing.active_children():
         print('subProcess: ' + p.name + ' id: ' + str(p.pid))
 
-    # print('All the tasks are finished !!')
+
+def main_test(files):
+    for path in files:
+        p = multiprocessing.Process(target=scan_files_test, args=(path,))
+        p.start()
+
+    # 目前所有的运行的进程
+    for p in multiprocessing.active_children():
+        print('subProcess: ' + p.name + ' id: ' + str(p.pid))
 
 
 if __name__ == "__main__":
@@ -193,4 +250,4 @@ if __name__ == "__main__":
         print("It's test !")
         files = [r"C:\Users\YGP2SZH\Desktop\bosch\bosch-web",
                  r"C:\Users\YGP2SZH\Desktop\download\myProject"]
-        main(files)
+        main_test(files)

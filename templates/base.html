@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+<style type="text/css">
+    .nav-table{
+        border: 0 ;
+    }
+    .nav-table td {
+        font-size: 18px ;
+        color: #1552ff ;
+        border: 50px ;
+        padding-left: 10px ;
+        padding-right: 10px ;
+    }
+</style>
+
+<!-- 设置彩虹条置顶 -->
+<div>
+<div>
+    <img src="/static/img/rainbow_bar.png " width="100%" alt="rainbow_bar.png">
+</div>
+<!-- 设置bosch_logo -->
+<div>
+    <img src="/static/img/logo.jpg" alt="BOSCH LOGO" width="150" height="37" align="right">
+</div>
+
+
+<div >
+    <table class="nav-table">
+        <tr >
+            <td class="nav-table"><a href="/" >Home Page</a></td>
+            <td class="nav-table"><a href="/1" > Isilon1 </a></td>
+            <td class="nav-table"><a href="/2" > Isilon2 </a></td>
+        </tr>
+    </table>
+</div>
+</div>
+<div>
+    {% block body %}
+    {% endblock %}
+</div>
+
+<footer>
+    <div  style="font-size: 12px;font-family: Verdana, Geneva, Tahoma, sans-serif;margin-top: 10px;">
+        <div  style="text-align: right; padding-right: 50px;">
+            <p  style="text-align: right; padding-right: 60px;">Contact us:</p>
+            <p>Zhongjie.WEI@cn.bosch.com</p>
+            <p>fixed-term.Peter.Yang2@cn.bosch.com</p>
+        </div>
+        <p  style="padding-left: 50px;">Copyright © 2020 CC-DA/ESS4-CN. All Rights Reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

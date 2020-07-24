@@ -1,0 +1,12 @@
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;avi;15170;63215520414284;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;zip;0;0;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;mf4;0;0;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;RIF;0;0;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;htm;0;0;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;others;30474;163555736113664;2020-07-21 11:09:58
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;avi;15170;63215520414284;2020-07-24 10:29:16
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;zip;0;0;2020-07-24 10:29:16
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;mf4;0;0;2020-07-24 10:29:16
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;RIF;0;0;2020-07-24 10:29:16
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;htm;0;0;2020-07-24 10:29:16
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357;others;30474;163555736113664;2020-07-24 10:29:16

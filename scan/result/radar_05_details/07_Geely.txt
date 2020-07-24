@@ -1,0 +1,12 @@
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;avi;73255;291000292480648;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;zip;26600;43860408526203;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;mf4;851;6467980990160;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;RIF;10806;39401428203304;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;htm;18;2445258;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;others;200556;424874047083786;2020-07-21 11:16:07
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;avi;77057;302658017068686;2020-07-24 10:36:44
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;zip;26600;43860408526203;2020-07-24 10:36:44
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;mf4;1416;7590722606980;2020-07-24 10:36:44
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;RIF;10806;39401428203304;2020-07-24 10:36:44
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;htm;18;2445258;2020-07-24 10:36:44
+\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely;others;207933;450412926256650;2020-07-24 10:36:44
