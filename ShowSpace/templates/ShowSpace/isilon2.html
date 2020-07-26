@@ -18,120 +18,133 @@
 
 
 {% block body %}
-<style type="text/css">
-    .subtitle {
-        font-size: 22px;
-        font-weight: normal;
-        text-align: center;
-        margin-top: 25px;
-        margin-bottom: 20px;
-    }
-</style>
-<!--table style-->
-<style >
-    .yyh-table {
-        margin: 8px;
-        border-radius: 0px;
-        font-size: 12px;
-        border: none;
-        max-width: 100%;
-        white-space: nowrap;
-        word-break: keep-all;
-    }
+    <style type="text/css">
+        .subtitle {
+            font-size: 22px;
+            font-weight: normal;
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <!--table style-->
+    <style>
+        .yyh-table {
+            margin: 8px;
+            border-radius: 0px;
+            font-size: 12px;
+            border: none;
+            max-width: 100%;
+            white-space: nowrap;
+            word-break: keep-all;
+        }
 
-    .yyh-table tr {
-        text-align: center;
-        display: table-row;
-        border-color: inherit;
-    }
+        .yyh-table tr {
+            text-align: center;
+            display: table-row;
+            border-color: inherit;
+        }
 
-    .yyh-table tr:hover td {
-        background: #AFEEEE;
-    }
+        .yyh-table tr:hover td {
+            background: #AFEEEE;
+        }
 
-    .yyh-table td {
-        border-style: none;
-        text-align: center;
-        font-size: 15px;
-        vertical-align: central;
-        border-bottom: 0px solid #dbdbdb;
-        border-left: 1px solid #dbdbdb;
-        border-right: 1px solid #dbdbdb;
-        height: 40px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+        .yyh-table td {
+            border-style: none;
+            text-align: center;
+            font-size: 15px;
+            vertical-align: central;
+            border-bottom: 0px solid #dbdbdb;
+            border-left: 1px solid #dbdbdb;
+            border-right: 1px solid #dbdbdb;
+            height: 40px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
 
-    .yyh-table th {
-        border-style: none;
-        text-align: center;
-        font-weight: 400;
-        font-size: 18px;
-        vertical-align: center;
-        background: #3399FF;
-        border-left: 1px solid #dbdbdb;
-        border-right: 1px solid #dbdbdb;
-        padding: 8px;
-    }
+        .yyh-table th {
+            border-style: none;
+            text-align: center;
+            font-weight: 400;
+            font-size: 18px;
+            vertical-align: center;
+            background: #3399FF;
+            border-left: 1px solid #dbdbdb;
+            border-right: 1px solid #dbdbdb;
+            padding: 8px;
+        }
 
-    .yyh-table tr:nth-child(odd) {
-        background: #87CEFA;
-    }
+        .yyh-table tr:nth-child(odd) {
+            background: #87CEFA;
+        }
 
-    .yyh-table tr:nth-child(even) {
-        background: #E0FFFF;
-    }
+        .yyh-table tr:nth-child(even) {
+            background: #E0FFFF;
+        }
 
-</style>
+    </style>
 
-<div class="container page-header" >
-    <h1 style=" text-align: center; margin-top: -25px">IsilonSZH12 Details</h1>
-</div>
+    <div class="container page-header">
+        <h1 style=" text-align: center; margin-top: -25px">IsilonSZH12 Details</h1>
+    </div>
 
-<div>
-    <h2 class="subtitle" style="margin-top: 40px">Disk Usage of Different Projects in Radar_05</h2>
-</div>
-
-<div align="center">
-    <script type="text/javascript">
-        {{ data | safe }}
-    </script>
-</div>
+    <div>
+        <h2 class="subtitle" style="margin-top: 40px">Disk Usage of Different Projects in Radar_05</h2>
+    </div>
 
 
-<div>
-    <h2 class="subtitle">Disk Utilization Details in Radar_05</h2>
-</div>
+    <div class="col-md-9" role="main">
+        <div align="center">
+            <script type="text/javascript">
+                {{ data | safe }}
+            </script>
+        </div>
+    </div>
+        <div class="col-md-3" role="complementary">
+            <div style="margin-bottom: 100px">
+                <h4>click the link</h4>
+                {% for value in result %}
+                    <p><a href="/detail/{{ value.0 }}">{{ value.0 }}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+    <div>
 
-<!--05_Radar Drives Details-->
-<div class="yyh-table">
-    <table border="0" align="center">
-        <tr>
-            <th>Sub-Directories under 05_Radar</th>
-            <th>Used Space</th>
-            <th>Percentage</th>
-            <th>TimeScanned</th>
-            <th>Details link</th>
-        </tr>
+        <div >
+            <h2 class="subtitle">Disk Utilization Details in Radar_05</h2>
+        </div>
 
-        {% for value in result %}
-        <tr>
-            <td>
-                {{value.0}}
-            </td>
-            <!--Location-->
-            <td>{{value.1.0}} TB</td>
-            <td>{{value.1.1}}%</td>
-            <td>{{value.1.2}}</td>
-            <td><a href="/detail/{{value.0}}">
-                <img src="/static/img/link2.jpg" alt="details" width="25px" height="25px" />
-                    </a>
-            </td>
-        </tr>
-        {% endfor %}
+        <!--05_Radar Drives Details-->
+        <div class="yyh-table">
+            <table border="0" align="center">
+                <tr>
+                    <th>Sub-Directories under 05_Radar</th>
+                    <th>Used Space</th>
+                    <th>Percentage</th>
+                    <th>TimeScanned</th>
+                    <th>Details link</th>
+                </tr>
 
-    </table>
-</div>
+                {% for value in result %}
+                    <tr>
+                        <td>
+                            {{ value.0 }}
+                        </td>
+                        <!--Location-->
+                        <td>{{ value.1.0 }} TB</td>
+                        <td>{{ value.1.1 }}%</td>
+                        <td>{{ value.1.2 }}</td>
+                        <td><a href="/detail/{{ value.0 }}">
+                            <img src="/static/img/link2.jpg" alt="details" width="25px" height="25px"/>
+                        </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
 
 
 

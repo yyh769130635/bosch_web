@@ -40,7 +40,6 @@ def query_data(sql, data=()):
         else:
             cursor.execute(sql)
         return cursor.fetchall()
-        # return cursor.fetchall()
     except:
         conn.rollback()
     finally:
@@ -109,7 +108,7 @@ def radar_05_folder_info(folder_name):
     # folder_name = "08_report_summary"
     sql = "select folder_size,scan_date from ShowSpace_radar05 where folder_name=? order by scan_date"
     ans = query_data(sql, (folder_name,))
-    # print(ans)
+    print(ans)
     return ans
 
 
@@ -178,10 +177,14 @@ def get_radar05_details(name):
     # name = "00_Cluster"
     ans = []
     value = []
-    sql = '''select folder_name,type,number,size,scan_date from ShowSpace_radar05_details
-    where folder_name=?  group by type order by scan_date ASC'''
-    temp = query_data(sql, (name,))
-    for i in temp:
+    sql = '''select DISTINCT type from ShowSpace_radar05_details '''
+    # pprint.pprint(query_data(sql))
+    types = query_data(sql)
+    for type in types:
+        sql = '''select folder_name,type,number,size,scan_date from ShowSpace_radar05_details
+                    where folder_name=?  and type =? order by scan_date DESC'''
+        i = query_data_one(sql, (name, type[0],))
+
         size = round(int(i[3]) // 1024 // 1024 // 1024 / 1024, 2)
         ans.append([i[1], i[2], size, i[4]])
         value.append([i[1], int(i[3])])
@@ -210,7 +213,7 @@ def get_details(request, name):
     # data1 = data[-6:]
     # values11 = values1[-6:]
 
-    c = (Pie(init_opts=opts.InitOpts(width="600px", height="280px"))
+    c = (Pie(init_opts=opts.InitOpts(width="600px", height="350px"))
         .add("", values1, center=["50%", "50%"], is_clockwise=False, radius=["30%", "60%"])
         .set_global_opts(
         legend_opts=opts.LegendOpts(type_="scroll", pos_right="85%", orient="vertical"),
@@ -271,4 +274,11 @@ if __name__ == "__main__":
     #         line = f.readline()
     # print(data)
 
-    get_radar05_details()
+    sql = '''select DISTINCT type from ShowSpace_radar05_details '''
+    # pprint.pprint(query_data(sql))
+    types = query_data(sql)
+    for i in types:
+        # print(i[0])
+        sql = '''select folder_name,type,number,size,scan_date from ShowSpace_radar05_details
+            where folder_name=?  and type =? order by scan_date DESC'''
+        print(query_data(sql, ("00_Cluster",i[0],)))

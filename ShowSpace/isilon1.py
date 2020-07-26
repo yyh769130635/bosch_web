@@ -64,7 +64,7 @@ def read_context(totalSpace):
     '''
     ## 读txt，之后再配合数据库
     res = {}
-    path = r"C:\Users\YGP2SZH\Desktop\myProject\scan\IsilonSzh.txt"
+    path = r".\scan\IsilonSzh.txt"
     with open(path, "r") as f:
         line = f.readline()
         while line:
