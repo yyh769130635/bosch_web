@@ -4,7 +4,7 @@
 
 {% block head %}
 <meta charset="utf-8"/>
-<title>FreeSpace on Network Drive</title>
+<title>Isilon Usage Situation</title>
 <meta name="keywords" content=""/>
 <meta name="description" content=""/>
 <!-- 引入 css -->
@@ -86,10 +86,11 @@
     <h1 style="text-align: center; margin-top: -25px"> Overview of the Disk Usage</h1>
 </div>
 
-<div class="col-md-6">
+<div >
+<div class="col-md-6" style="margin-bottom: 50px">
     <!--   IsilonSZH1使用情况     -->
     <div>
-        <h2 class="subtitle"><a href="/1" style="color:#1552ff">IsilonSZH1</a></h2>
+        <h2 class="subtitle"><a href="/Isilon1/" style="color:#1552ff">IsilonSZH1</a></h2>
     </div>
     <div class="fl-table">
         <table border="0" align="center">
@@ -117,10 +118,10 @@
     </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6" style="margin-bottom: 50px">
     <!--   IsilonSZH2使用情况     -->
     <div>
-        <h2 class="subtitle"><a href="/2" style="color:#1552ff">IsilonSZH2</a></h2>
+        <h2 class="subtitle"><a href="/Isilon2/" style="color:#1552ff">IsilonSZH2</a></h2>
     </div>
     <div class="fl-table">
 
@@ -151,5 +152,5 @@
 
 
 </div>
-
+<br>
 {% endblock %}

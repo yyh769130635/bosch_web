@@ -1,2 +1,2 @@
-start periodicallyRunAnalyze.bat
+start startScanScripts.bat
 start startWeb.bat

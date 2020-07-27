@@ -3,149 +3,110 @@
 {% load static %}
 
 {% block head %}
-
-    <meta charset="utf-8">
-    <title>Isilon2 Details</title>
+    <meta charset="UTF-8">
+    <title>Isilon 2 Details</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
+    <!-- 引入 css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <!-- 引入 echarts.js -->
     <script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
-    <script type="text/javascript2" src="{% static 'echarts-pie.min.js' %}"></script>
     <script type="text/javascript3" src="{% static 'bootstrap.min.js' %}"></script>
-
 {% endblock %}
 
 
 {% block body %}
-    <style type="text/css">
-        .subtitle {
-            font-size: 22px;
-            font-weight: normal;
-            text-align: center;
-            margin-top: 25px;
-            margin-bottom: 20px;
-        }
-    </style>
-    <!--table style-->
-    <style>
-        .yyh-table {
-            margin: 8px;
-            border-radius: 0px;
-            font-size: 12px;
-            border: none;
-            max-width: 100%;
-            white-space: nowrap;
-            word-break: keep-all;
-        }
+<!--table style-->
+<style >
+    .yyh-table {
+        margin: 8px;
+        border-radius: 0px;
+        font-size: 12px;
+        border: none;
+        max-width: 100%;
+        white-space: nowrap;
+        word-break: keep-all;
+    }
 
-        .yyh-table tr {
-            text-align: center;
-            display: table-row;
-            border-color: inherit;
-        }
+    .yyh-table tr {
+        text-align: center;
+        display: table-row;
+        border-color: inherit;
+    }
 
-        .yyh-table tr:hover td {
-            background: #AFEEEE;
-        }
+    .yyh-table tr:hover td {
+        background: #AFEEEE;
+    }
 
-        .yyh-table td {
-            border-style: none;
-            text-align: center;
-            font-size: 15px;
-            vertical-align: central;
-            border-bottom: 0px solid #dbdbdb;
-            border-left: 1px solid #dbdbdb;
-            border-right: 1px solid #dbdbdb;
-            height: 40px;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
+    .yyh-table td {
+        border-style: none;
+        text-align: center;
+        font-size: 15px;
+        vertical-align: central;
+        border-bottom: 0px solid #dbdbdb;
+        border-left: 1px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 
-        .yyh-table th {
-            border-style: none;
-            text-align: center;
-            font-weight: 400;
-            font-size: 18px;
-            vertical-align: center;
-            background: #3399FF;
-            border-left: 1px solid #dbdbdb;
-            border-right: 1px solid #dbdbdb;
-            padding: 8px;
-        }
+    .yyh-table th {
+        border-style: none;
+        text-align: center;
+        font-weight: 400;
+        font-size: 18px;
+        vertical-align: center;
+        background: #3399FF;
+        border-left: 1px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        padding: 8px;
+    }
 
-        .yyh-table tr:nth-child(odd) {
-            background: #87CEFA;
-        }
+    .yyh-table tr:nth-child(odd) {
+        background: #87CEFA;
+    }
 
-        .yyh-table tr:nth-child(even) {
-            background: #E0FFFF;
-        }
+    .yyh-table tr:nth-child(even) {
+        background: #E0FFFF;
+    }
 
-    </style>
+</style>
 
-    <div class="container page-header">
-        <h1 style=" text-align: center; margin-top: -25px">IsilonSZH12 Details</h1>
-    </div>
+<div class="container page-header" >
+    <h1 style=" text-align: center; margin-top: -25px;margin-left: 100px">IsilonSZH1 Details
+        <small style="font-size: 18px"><a href="/static/IsilonSzh2.txt" download="Print">->Download Report</a></small>
+    </h1>
+</div>
 
-    <div>
-        <h2 class="subtitle" style="margin-top: 40px">Disk Usage of Different Projects in Radar_05</h2>
-    </div>
+<div class="yyh-table">
+    <table border="0" align="center">
+        <tr >
+            <th>Location of Directories</th>
+            <th>Dir Space</th>
+            <th>Percentage</th>
+            <th>TimeScanned</th>
+        </tr>
+        {% for drive,value in context.items %}
+        <tr>
+            <td>
+                {{drive}}
+            </td>
+            <!--Location-->
+            <td style="color: #ff1d12">
+                {{value.0}}TB
+            </td>
+            <td style="color: #ff1d12">
+                {{value.1}}%
+            </td>
+            <td >
+                {{value.2}}
+            </td>
 
-
-    <div class="col-md-9" role="main">
-        <div align="center">
-            <script type="text/javascript">
-                {{ data | safe }}
-            </script>
-        </div>
-    </div>
-        <div class="col-md-3" role="complementary">
-            <div style="margin-bottom: 100px">
-                <h4>click the link</h4>
-                {% for value in result %}
-                    <p><a href="/detail/{{ value.0 }}">{{ value.0 }}</a></p>
-                {% endfor %}
-            </div>
-        </div>
-    <div>
-
-        <div >
-            <h2 class="subtitle">Disk Utilization Details in Radar_05</h2>
-        </div>
-
-        <!--05_Radar Drives Details-->
-        <div class="yyh-table">
-            <table border="0" align="center">
-                <tr>
-                    <th>Sub-Directories under 05_Radar</th>
-                    <th>Used Space</th>
-                    <th>Percentage</th>
-                    <th>TimeScanned</th>
-                    <th>Details link</th>
-                </tr>
-
-                {% for value in result %}
-                    <tr>
-                        <td>
-                            {{ value.0 }}
-                        </td>
-                        <!--Location-->
-                        <td>{{ value.1.0 }} TB</td>
-                        <td>{{ value.1.1 }}%</td>
-                        <td>{{ value.1.2 }}</td>
-                        <td><a href="/detail/{{ value.0 }}">
-                            <img src="/static/img/link2.jpg" alt="details" width="25px" height="25px"/>
-                        </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-
-    </div>
-
-
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 
 {% endblock %}

@@ -1,14 +1,14 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
-from . import isilon2
+from . import radar05
 from . import isilon1
-from . import temp
+from . import isilon2
 
 urlpatterns = [
-    path('', views.main),
-    url(r'^2/$', isilon2.main),
-    url(r"^1/$", isilon1.main),
-    path('detail/<str:name>', isilon2.get_details),
-    url(r"^3/$", temp.index),
+    path(r'Isilon_Usage_Condition/', views.main),
+    url(r'^Radar05/$', radar05.main),
+    url(r"^Isilon1/$", isilon1.main),
+    url(r"^Isilon2/$", isilon2.main),
+    path('Radar05/<str:name>', radar05.get_details),
 ]

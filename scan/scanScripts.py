@@ -6,90 +6,43 @@ import os, time, sys, pprint
 from os.path import join, getsize
 import multiprocessing
 import datetime
+import sqlite3
+import psutil
+import schedule
 
 # ------------Variables---------------#
 extendMaxLengthSymbol = r'\\?\UNC'
-flag = 0  # 1表示真实环境，0为test
-# file_Format = ("avi", "zip", "mf4", "RIF", "htm")
+flag = 1  # 1表示真实环境，0为test
+file_Format = ("avi", "zip", "mf4", "RIF", "htm")
 
-file_Format = ('py', 'html', 'bat', 'css', 'ipynb')
+# file_Format = ('py', 'html', 'bat', 'css', 'ipynb')
+
+database_path = r".\db.sqlite3"
+
+
+# database_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + r"\db.sqlite3"
 
 
 # ------------/Variables--------------#
-
-def ListDir(dir_data):
-    '''
-    :param dir_data: 指定获取内容的目录
-    每次返回目录下的一个文件或文件夹(生成器练习)
-    '''
-    list_dir = os.listdir(dir_data)
-    while True:
-        try:
-            list_obj = list_dir.pop()
-            yield dir_data, list_obj
-        except IndexError:
-            return
+# 链接数据库
+def get_conn():
+    global database_path
+    return sqlite3.connect(database_path)
 
 
-def GetDirSize(dir):
-    size = 0  # 文件总大小
-    # top - - 是你所要遍历的目录的地址, 返回的是一个三元组(root, dirs, files)。
-    # root所指的是当前正在遍历的这个文件夹的本身的地址
-    # dirs是一个list ，内容是该文件夹中所有的目录的名字(不包括子目录)
-    # files同样是list, 内容是该文件夹中所有的文件(不包括子目录)
-    for root, dirs, files in os.walk(dir):
-        # print(root, dirs, files)
-        size += sum([getsize(join(root, name)) for name in files])
-    return size
-
-
-def getFileInfo(dir_data):
-    '''
-    :param dir_data: 调用ListDir函数是所需参数
-    获取目录内的每个文件或目录的属性和大小并打印
-    '''
-    info = {}
-    for root, obj in ListDir(dir_data):
-        dir_obj = '%s/%s' % (root, obj)
-        if os.path.isfile(dir_obj):  # 文件处理
-            '''info为字典格式，方便返回调用，此脚本只是输出内容，不涉及返回调用'''
-            info['TimeCreated'] = os.path.getctime(dir_obj)  # 获取创建时间
-            info['TimeModified'] = os.path.getatime(dir_obj)  # 获取访问时间
-            info['Size'] = os.path.getsize(dir_obj) / 1024 / 1024  # 获取文件大小，单位为M
-            if info['Size'] >= 1024:  # 文件大小换算为G
-                info['Size'] = info['Size'] / 1014
-                print('%-5s\t%10.2fG\t%30s\t%30s\t%-20s' % (
-                    'dir', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
-            elif info['Size'] < 1:  # 文件大小换算问K
-                info['Size'] = info['Size'] * 1024
-                print('%-5s\t%10.2fK\t%30s\t%30s\t%-20s' % (
-                    'dir', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
-            else:
-                print('%-5s\t%10.2fM\t%30s\t%30s\t%-20s' % (
-                    'dir', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
-
-        else:  # 目录处理
-            info['TimeCreated'] = os.path.getctime(dir_obj)
-            info['TimeModified'] = os.path.getatime(dir_obj)
-            info['Size'] = GetDirSize(dir_obj) / 1024 / 1024
-
-            if info['Size'] >= 1024:
-                info['Size'] = info['Size'] / 1014
-                print('%-5s\t%10.2fG\t%30s\t%30s\t%-20s' % (
-                    'file', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
-            elif info['Size'] < 1:
-                info['Size'] = info['Size'] * 1024
-                print('%-5s\t%10.2fK\t%30s\t%30s\t%-20s' % (
-                    'file', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
-            else:
-                print('%-5s\t%10.2fM\t%30s\t%30s\t%-20s' % (
-                    'dir', info['Size'], time.ctime(info['TimeCreated']), time.ctime(info['TimeModified']), obj))
+def insert_or_update_date(sql, data):
+    conn = get_conn()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(sql, data)
+        conn.commit()
+        print("successful")
+    finally:
+        conn.close()
 
 
 def scan_files(directory):
     start = time.time()
-    # files_list = []
-    # print("扫描{}文件的子进程ID号: {}".format(postfix, os.getpid()))  # os.getpid()进程ID
     cnt = [0, 0, 0, 0, 0]
     size = [0, 0, 0, 0, 0]
     others_size = 0
@@ -97,11 +50,8 @@ def scan_files(directory):
     fold_size = 0
     fold_cnt = 0
     global file_Format
-    # top - - 是你所要遍历的目录的地址, 返回的是一个三元组(root, dirs, files)。
-    # root所指的是当前正在遍历的这个文件夹的本身的地址
-    # sub_dirs是一个list ，内容是该文件夹中所有的目录的名字(不包括子目录)
-    # files同样是list, 内容是该文件夹中所有的文件(不包括子目录)
-    # print(directory)
+
+    # 扫描文件夹下具体信息
     for root, sub_dirs, Files in os.walk(directory):
         for special_file in Files:
             # if postfix:
@@ -121,87 +71,54 @@ def scan_files(directory):
                 others_size += getsize(os.path.join(root, special_file))
             fold_size += getsize(os.path.join(root, special_file))
             fold_cnt += 1
-            # elif prefix:
-            #     if special_file.startswith(prefix):
-            #         files_list.append(os.path.join(root, special_file))
-            # else:
-            #     files_list.append(os.path.join(root, special_file))
 
-    # print("后缀为 {} 格式的文件数量有 {} 个，大小为 {}KB".format(postfix, cnt, size // 1024))
-    # for i in range(len(file_Format)):
-    #     print("文件类型 {} 的数量有 {} 个，大小为 {}KB".format(file_Format[i],cnt[i], size[i] // 1024))
     result_name = directory.split("\\")[-1]
-
-    # 保存扫描整个folder的信息{path,文件夹大小（GB），扫描日期，扫描时长}
     end = time.time()
-    with open(r".\result\time_record.txt", "a+") as f2:
-        # t = datetime.datetime.now().strftime('%F %T')
-        t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # "%Y-%m-%d %H:%M:%S"
-        f2.write(directory + ";" + str(fold_size) + ";" + t +
-                 ";" + str((end - start) // 60) + "\n")
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    data = (result_name, directory, fold_size, date, str((end - start) // 60),)
 
-    print("folder: {} size: {}GB ,scan time:{} min".format(result_name, (fold_size // 1024 // 1024 // 1024),
-                                                           (end - start) // 60))
+    sql = '''insert into ShowSpace_radar05 (folder_name,folder_dir,folder_size,scan_date,time_duration) 
+                values(?,?,?,?,?);'''
+    insert_or_update_date(sql, data)
+    print("insert radar_05 total info successfully !")
 
-    # 文件夹的具体信息{文件夹，文件格式，文件数量，文件大小（GB），扫描时间}
-    with open(r".\result\radar_05_details\{}.txt".format(result_name), 'a+') as f:
-        for i in range(len(file_Format)):
-            # t = datetime.datetime.now().strftime('%F %T')
-            t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(directory + ";" + str(file_Format[i]) + ";" + str(cnt[i]) + ";" +
-                    str(size[i]) + ";" + t + "\n")
-        f.write(
-            directory + ";others;" + str(others_cnt) + ";" + str(
-                others_size) + ";" + t + "\n")
+    for i in range(len(file_Format)):
+        t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data = (result_name, directory, file_Format[i], cnt[i], size[i], t,)
+        sql = '''insert into ShowSpace_radar05_details 
+        (folder_name,folder_dir,type,number,size,scan_date) values(?,?,?,?,?,?);'''
+        insert_or_update_date(sql, data)
+
+    t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    data = (result_name, directory, "others", others_cnt, others_size, t,)
+    sql = '''insert into ShowSpace_radar05_details 
+            (folder_name,folder_dir,type,number,size,scan_date) values(?,?,?,?,?,?);'''
+    insert_or_update_date(sql, data)
+    print("insert radar_05 details info successfully !")
 
 
-def scan_files_test(directory):
-    start = time.time()
-    cnt = [0, 0, 0, 0, 0]
-    size = [0, 0, 0, 0, 0]
-    others_size = 0
-    others_cnt = 0
-    fold_size = 0
-    fold_cnt = 0
-    global file_Format
-    for root, sub_dirs, Files in os.walk(directory):
-        for special_file in Files:
-            temp = special_file.split('.')[-1]
-            if temp in file_Format:
-                index = file_Format.index(temp)
-                cnt[index] += 1
-                size[index] += getsize(os.path.join(root, special_file))
-            else:
-                others_cnt += 1
-                others_size += getsize(os.path.join(root, special_file))
-            fold_size += getsize(os.path.join(root, special_file))
-            fold_cnt += 1
-    result_name = directory.split("\\")[-1]
-
-    # 保存扫描整个folder的信息{path,文件夹大小（GB），扫描日期，扫描时长}
-    end = time.time()
-    with open(r".\test_result\time_record.txt", "a+") as f2:
-        # t = datetime.datetime.now().strftime('%F %T')
-        t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # "%Y-%m-%d %H:%M:%S"
-        f2.write(directory + ";" + str(fold_size) + ";" + t +
-                 ";" + str((end - start) // 60) + "\n")
-
-    print("folder: {} size: {}GB ,scan time:{} min".format(result_name, (fold_size // 1024 // 1024 // 1024),
-                                                           (end - start) // 60))
-
-    # 文件夹的具体信息{文件夹，文件格式，文件数量，文件大小（GB），扫描时间}
-    with open(r".\test_result\radar_05_details\{}.txt".format(result_name), 'a+') as f:
-        for i in range(len(file_Format)):
-            # t = datetime.datetime.now().strftime('%F %T')
-            t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(directory + ";" + str(file_Format[i]) + ";" + str(cnt[i]) + ";" +
-                    str(size[i]) + ";" + t + "\n")
-        f.write(
-            directory + ";others;" + str(others_cnt) + ";" + str(
-                others_size) + ";" + t + "\n")
+def isilon():
+    paths = [r"//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/01_GEN4",
+             r"//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/05_Radar_ER"]
+    for i in range(len(paths)):
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        isilon = psutil.disk_usage(paths[i])
+        sql = '''insert into ShowSpace_isilon 
+                (folder_name,folder_dir,total_space,used_space,free_space,percentage,scan_date) values(?,?,?,?,?,?,?);'''
+        total_space = str(isilon.total // 1024 // 1024 // 1024) + "GB"
+        used_space = str(isilon.used // 1024 // 1024 // 1024) + "GB"
+        free_space = str(isilon.free // 1024 // 1024 // 1024) + "GB"
+        percentage = str(isilon.percent) + "%"
+        data = ("isilon{}".format(i + 1), paths[i], total_space, used_space, free_space, percentage, date)
+        insert_or_update_date(sql, data)
+    print("insert isilon1 and isilon2 info successfully !")
 
 
 def main(files):
+    ##扫描isilon1.2的整体信息
+    isilon()
+
+    ##扫描05雷达的具体信息
     for path in files:
         p = multiprocessing.Process(target=scan_files, args=(path,))
         p.start()
@@ -211,27 +128,10 @@ def main(files):
         print('subProcess: ' + p.name + ' id: ' + str(p.pid))
 
 
-def main_test(files):
-    for path in files:
-        p = multiprocessing.Process(target=scan_files_test, args=(path,))
-        p.start()
-
-    # 目前所有的运行的进程
-    for p in multiprocessing.active_children():
-        print('subProcess: ' + p.name + ' id: ' + str(p.pid))
-
-
-if __name__ == "__main__":
+def foo():
     print('CPU core numbers:' + str(multiprocessing.cpu_count()))  # 查看当前机器CPU核心数量
     print("Father process start!：%d" % os.getpid())
-    ##################
-    # path = r"\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\01_GAC"
-    # dir = r"\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\000000"
-    # dir = extendMaxLengthSymbol + path
-    # print(dir)
-    # dir = r"C:\Users\YGP2SZH\Desktop\bosch\bosch-web"
-    # scan_files(dir)
-    ###############
+
     if flag:
         print("It's real !")
         files = [r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\00_Cluster",
@@ -245,9 +145,66 @@ if __name__ == "__main__":
                  r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\08_report_summary",
                  r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357"]
         main(files)
-        # print('All the tasks are finished !!')
     else:
         print("It's test !")
         files = [r"C:\Users\YGP2SZH\Desktop\bosch\bosch-web",
                  r"C:\Users\YGP2SZH\Desktop\download\myProject"]
-        main_test(files)
+        main(files)
+
+
+if __name__ == "__main__":
+    # print('CPU core numbers:' + str(multiprocessing.cpu_count()))  # 查看当前机器CPU核心数量
+    # print("Father process start!：%d" % os.getpid())
+    #
+    # if flag:
+    #     print("It's real !")
+    #     files = [r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\00_Cluster",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\01_GAC",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\02_VW",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\03_BJEV_N61",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\04_BJEV_N60_2",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\05_Xpeng",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\06_FAW_C105",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\07_Geely",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\08_report_summary",
+    #              r"\\?\UNC\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER\09_FAW_D357"]
+    #     main(files)
+    # else:
+    #     print("It's test !")
+    #     files = [r"C:\Users\YGP2SZH\Desktop\bosch\bosch-web",
+    #              r"C:\Users\YGP2SZH\Desktop\download\myProject"]
+    #     main(files)
+
+    # # 每隔3秒钟运行foo，如果有参数，直接通过args= 或者kwargs=进行传参即可
+    # schedule.every(3).seconds.do(foo)
+    # # 每隔1秒钟运行foo
+    # schedule.every().seconds.do(foo)
+    # # 每隔1分钟运行foo
+    # schedule.every().minutes.do(foo)
+    # # 每隔一小时运行foo
+    # schedule.every().hours.do(foo)
+    # # 每隔一天运行foo
+    # schedule.every().days.do(foo)
+    # # 每隔一星期运行foo
+    # schedule.every().weeks.do(foo)
+    # # 每隔3到5秒钟运行foo
+    # schedule.every(3).to(5).seconds.do(foo)
+    # # 每隔3到5天运行foo
+    # schedule.every(3).to(5).days.do(foo)
+    #
+    # # 每天在10:30的时候运行foo
+    # schedule.every().days.at("10:30").do(foo)
+    # # 每周一的时候运行foo
+    # schedule.every().monday.do(foo)
+    # # 每周日晚上11点的时候运行foo
+    # schedule.every().sunday.at("23:00").do(foo)
+
+    # 每天在10:30的时候运行foo
+    schedule.every().days.at("11:30").do(foo)
+    while True:
+        # 保持schedule一直运行，然后去查询上面的任务
+        schedule.run_pending()
+
+    # foo()
+    # print(os.getcwd())
+    # isilon()
