@@ -1,0 +1,32 @@
+#####################################################
+Processing location: Isilon Szh
+
+1 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\02_FV2_DB --> 9973,4988 GB
+2 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\03_EAY --> 58006,3133 GB
+3 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\000000 --> 0 GB
+4 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\HPDE\000000 --> 0 GB
+5 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\02_GEN5 --> 108297,7415 GB
+6 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\000000 --> 0 GB
+7 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\03_FV3_DB --> 135403,4047 GB
+8 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\04_NRC_DB --> 4066,0907 GB
+9 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\01_GEN4 --> 64729,5378 GB
+10 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\01_Doc --> 15921,9297 GB
+11 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\000000 --> 0 GB
+12 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\05_SW_Release --> 974,2433 GB
+13 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\dTCS --> 39,7401 GB
+14 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CPM --> 1,8733 GB
+15 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\BSW_Test --> 9,3349 GB
+16 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\000000 --> 0 GB
+17 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\06_NRC_ValidationData\000000 --> 0 GB
+18 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\06_NRC_ValidationData\NRC_Data_Temp --> 28482,5449 GB
+19 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\SW_TOOL_Release --> 448,8177 GB
+20 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\06_NRC_ValidationData\NRC_Label_Temp --> 0 GB
+21 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\06_NRC_ValidationData\NRC_Label --> 16,3911 GB
+22 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_ASW --> 33484,2561 GB
+23 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_APP --> 0 GB
+24 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\04_Radar_ER --> 394918,1611 GB
+25 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\PBI --> 1,5835 GB
+26 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Video\06_NRC_ValidationData\NRC_Data --> 831,8869 GB
+
+Calculated total used in Isilon Szh >> 835,55 TB
+Overall used space Isilon Szh >> 99,7333%

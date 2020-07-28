@@ -16,6 +16,7 @@ import os
 import time
 import datetime
 import sqlite3
+import pprint
 
 # -----------------<variables>--------------------
 
@@ -68,10 +69,11 @@ def read_context(totalSpace):
     with open(path, "r") as f:
         line = f.readline()
         while line:
-            temp = line.split(" ")
-            used = temp[2].split(",")[0]
-            used = round(int(used) / 1024, 2)
-            res[temp[0]] = [used, round((used / totalSpace) * 100, 2), "2020-07-15 11:08"]
+            temp = line.split(";")
+            # used = temp[4].split(",")[0]
+            # used = round(int(used) / 1024, 2)
+            used = int(temp[1])
+            res[temp[0]] = [used, round((used//1024 / totalSpace) * 100, 2), temp[2]]
             line = f.readline()
     return res
 

@@ -59,7 +59,7 @@ def isilon_info(i):
 
 def read_context(totalSpace):
     '''
-    :param totalSpace: isilon2's total space
+    :param totalSpace: isilon1's total space
     :return: {}
     '''
     ## 读txt，之后再配合数据库
@@ -68,10 +68,11 @@ def read_context(totalSpace):
     with open(path, "r") as f:
         line = f.readline()
         while line:
-            temp = line.split(" ")
-            used = temp[2].split(",")[0]
-            used = round(int(used) / 1024, 2)
-            res[temp[0]] = [used, round((used / totalSpace) * 100, 2), "2020-07-15 11:08"]
+            temp = line.split(";")
+            # used = temp[4].split(",")[0]
+            # used = round(int(used) / 1024, 2)
+            used = int(temp[1])
+            res[temp[0]] = [used, round((used//1024 / totalSpace) * 100, 2), temp[2]]
             line = f.readline()
     return res
 

@@ -20,6 +20,10 @@ database_path = r".\db.sqlite3"
 
 # -----------------<variables>--------------------
 
+def hello(request):
+    return render(request, "ShowSpace/hello.html")
+
+
 def query_data_one(sql, data=()):
     conn = sqlite3.connect(database_path)
     try:

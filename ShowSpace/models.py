@@ -64,3 +64,16 @@ class radar05_details(models.Model):
         return self.folder_name
 
 
+
+# class isilon1_info(models.Model):
+#     # ID：
+#     id = models.AutoField(primary_key=True)
+#     # 绝对路径
+#     folder_dir = models.TextField()
+#     # used
+#     used_space = models.CharField(max_length=100)
+#     # 扫描日期
+#     scan_date = models.DateTimeField()
+#
+#     def __str__(self):
+#         return self.folder_name

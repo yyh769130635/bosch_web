@@ -6,6 +6,7 @@ from . import isilon1
 from . import isilon2
 
 urlpatterns = [
+    path('', views.hello),
     path(r'Isilon_Usage_Condition/', views.main),
     url(r'^Radar05/$', radar05.main),
     url(r"^Isilon1/$", isilon1.main),
