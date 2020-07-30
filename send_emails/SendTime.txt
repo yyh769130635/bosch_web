@@ -1,0 +1,3 @@
+alias;hour;min
+morning;8;30
+afternoon;13;30
