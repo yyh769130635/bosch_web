@@ -77,11 +77,36 @@ def read_context(totalSpace):
     return res
 
 
+def real_time():
+    path1 = r"//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/01_GEN4"
+    path2 = r"//abtvdfs2.de.bosch.com/ismdfs/loc/szh/DA/Radar/05_Radar_ER"
+    isilon1 = {}
+    isilon2 = {}
+    temp1 = psutil.disk_usage(path1)
+    isilon1["total"] = round(temp1.total // 1024 // 1024 // 1024 / 1024, 2)
+    isilon1["used"] = round(temp1.used // 1024 // 1024 // 1024 / 1024, 2)
+    isilon1["free"] = round(temp1.free // 1024 // 1024 // 1024 / 1024, 2)
+    isilon1["scan_date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    isilon1["percentage"] = temp1.percent
+
+    temp2 = psutil.disk_usage(path2)
+    isilon2["total"] = round(temp2.total // 1024 // 1024 // 1024 / 1024, 2)
+    isilon2["used"] = round(temp2.used // 1024 // 1024 // 1024 / 1024, 2)
+    isilon2["free"] = round(temp2.free // 1024 // 1024 // 1024 / 1024, 2)
+    isilon2["scan_date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    isilon2["percentage"] = temp2.percent
+
+    return isilon1, isilon2
+
+
 def main(request):
-    isilon1 = isilon_info(1)
-    isilon2 = isilon_info(2)
+    isilon1, isilon2 = real_time()
+
+    # isilon1 = isilon_info(1)
+    # is    ilon2 = isilon_info(2)
 
     rate1 = round((isilon1["used"] / isilon1["total"]) * 100, 2)
+
     d1 = (
         Gauge(init_opts=opts.InitOpts(width="400px", height="320px"))
             .add("", [("Usage Percentage", rate1)],
