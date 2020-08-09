@@ -5,7 +5,7 @@ from pyecharts import options as opts
 from pyecharts.charts import Bar, WordCloud, PictorialBar, Funnel, Pie, Gauge
 from pyecharts.globals import SymbolType
 from pyecharts.options import ComponentTitleOpts
-
+from .models import isilon
 ###############
 import psutil
 import os
@@ -56,6 +56,15 @@ def isilon_info(i):
     return info
 
 
+def temp():
+    info = {}
+    isi = isilon.objects.filter(folder_name="isilon1").order_by("scan_date")[:1]
+    # print(isi)
+    for i in isi:
+        print(i.id)
+    print(str(isilon.objects.filter(folder_name="isilon1").order_by("scan_date")[:1].query))
+
+
 def read_context(totalSpace):
     '''
     :param totalSpace: isilon1's total space
@@ -87,23 +96,24 @@ def real_time():
     isilon1["used"] = round(temp1.used // 1024 // 1024 // 1024 / 1024, 2)
     isilon1["free"] = round(temp1.free // 1024 // 1024 // 1024 / 1024, 2)
     isilon1["scan_date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    isilon1["percentage"] = temp1.percent
+    isilon1["percentage"] = str(temp1.percent) + "%"
 
     temp2 = psutil.disk_usage(path2)
     isilon2["total"] = round(temp2.total // 1024 // 1024 // 1024 / 1024, 2)
     isilon2["used"] = round(temp2.used // 1024 // 1024 // 1024 / 1024, 2)
     isilon2["free"] = round(temp2.free // 1024 // 1024 // 1024 / 1024, 2)
     isilon2["scan_date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    isilon2["percentage"] = temp2.percent
+    isilon2["percentage"] = str(temp2.percent) + "%"
 
     return isilon1, isilon2
 
 
 def main(request):
-    isilon1, isilon2 = real_time()
+    # isilon1, isilon2 = real_time()
+    temp()
 
-    # isilon1 = isilon_info(1)
-    # is    ilon2 = isilon_info(2)
+    isilon1 = isilon_info(1)
+    isilon2 = isilon_info(2)
 
     rate1 = round((isilon1["used"] / isilon1["total"]) * 100, 2)
 

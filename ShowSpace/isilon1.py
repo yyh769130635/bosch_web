@@ -17,7 +17,7 @@ import time
 import datetime
 import sqlite3
 import pprint
-
+from .models import isilon
 # -----------------<variables>--------------------
 
 database_path = r".\db.sqlite3"
@@ -80,6 +80,12 @@ def read_context(totalSpace):
 
 def main(request):
     isilon1 = isilon_info(1)
+
+    temp = isilon.objects.filter(folder_name="isilon1")
+    # print(temp)
+    for i in temp:
+        print(i.percentage)
+
     context = read_context(isilon1["total"])
 
     return render(request, 'ShowSpace/isilon1.html', {"context": context})
