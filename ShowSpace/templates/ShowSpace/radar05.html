@@ -102,10 +102,26 @@
     </div>
         <div class="col-md-3" role="complementary">
             <div style="margin-bottom: 100px">
+                <form action="/hello" method="get">
+                    <input type="text" name="Project" placeholder="00_Cluster">
+                    <input type="submit" value="get-method">
+                </form>
+                <form action="/hello2" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="Project" placeholder="00_Cluster">
+                    <input type="submit" value="post-method">
+                </form>
+
                 <h4>click the link</h4>
                 {% for value in result %}
                     <p><a href="/Radar05/{{ value.0 }}">{{ value.0 }}</a></p>
                 {% endfor %}
+
+                <select>
+                    {% for value in result %}
+                    <option value={{ value.0 }}>{{ value.0 }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
     <div>
