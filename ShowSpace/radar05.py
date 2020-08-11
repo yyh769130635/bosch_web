@@ -175,17 +175,23 @@ def get_radar05_details(name):
     # name = "00_Cluster"
     ans = []
     value = []
+<<<<<<< HEAD
     #sql = '''select DISTINCT type from ShowSpace_radar05_details '''
     # pprint.pprint(query_data(sql))
     #types = query_data(sql)
     #file_Format = ("AVI", "ZIP", "MF4", "RIF", "7Z","others")
     types = ["MF4","RIF","AVI","ZIP","7Z","others"]
+=======
+    sql = '''select DISTINCT type from ShowSpace_radar05_details '''
+    # pprint.pprint(query_data(sql))
+    types = query_data(sql)
+>>>>>>> parent of f783f78... 8.9
     for type in types:
         #if type[0] not in file_Format:
             #continue
         sql = '''select folder_name,type,number,size,scan_date from ShowSpace_radar05_details
                     where folder_name=?  and type =? order by scan_date DESC'''
-        i = query_data_one(sql, (name, type,))
+        i = query_data_one(sql, (name, type[0],))
 
         size = round(int(i[3]) // 1024 // 1024 // 1024 / 1024, 2)
         ans.append([i[1], i[2], size, i[4]])
