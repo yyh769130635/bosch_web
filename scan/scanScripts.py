@@ -196,10 +196,13 @@ def copyAndSave():
     ans = getFilePath()
     targets = []
     for i in ans:
+        print(i)
         sourcePath = i[0]
-        targetPath = r'.\\'
-        fileName = "QuotaReport_" + i[1].split("_")[1] + ".txt"
-        targetPath2 = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + "\\static\\" + fileName
+        targetPath = '.\\scan\\'
+        # fileName = "QuotaReport_" + i[1].split("_")[1] + ".txt"
+        fileName = i[1]
+        #targetPath2 = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + "\\static\\" + fileName
+        targetPath2 = ".\\static\\" + fileName
         targets.append([targetPath + fileName, i[2]])
         shutil.copy(sourcePath, targetPath + fileName)
         shutil.copy(sourcePath, targetPath2)
@@ -208,7 +211,7 @@ def copyAndSave():
     # print(targetPaths)
     # 保存成特点格式的文件供读取
     for row in targets:
-        file = r'.\\' + row[0].split("_")[1]
+        file = '.\\scan\\' + row[0].split("_")[1] + ".txt"
         res = []
         with open(row[0], "r") as f:
             line = f.readline()
@@ -226,7 +229,18 @@ def copyAndSave():
     print("save successfully")
 
 
+def temp():
+    # print("--"*10)
+    print("temp")
+    # print("--"*10)
+
+
+def temp2():
+    print("temp2")
+
+
 if __name__ == "__main__":
+    # copyAndSave()
     # print('CPU core numbers:' + str(multiprocessing.cpu_count()))  # 查看当前机器CPU核心数量
     # print("Father process start!：%d" % os.getpid())
     #
@@ -274,8 +288,12 @@ if __name__ == "__main__":
     # schedule.every().sunday.at("23:00").do(foo)
 
     # 每天在10:30的时候运行foo
+    schedule.every().days.at("07:00").do(foo)
     schedule.every().days.at("18:00").do(foo)
-    schedule.every().week.sunday.at("18:00").do(copyAndSave)
+    schedule.every().days.at("19:00").do(copyAndSave)
+    # schedule.every().week.sunday.at("18:00").do(copyAndSave)
+    #schedule.every(3).seconds.do(temp)
+    #schedule.every(1).seconds.do(temp2)
     while True:
         # 保持schedule一直运行，然后去查询上面的任务
         schedule.run_pending()

@@ -103,26 +103,9 @@
         <div class="col-md-3" role="complementary">
             <div style="margin-bottom: 100px">
                 <h4>click the link</h4>
-                <form action="/details2" method="get">
-                <input type="text" placeholder="00_Cluster" name="Project" />
-                <input type="submit" value="GET-search">
-                </form>
-
-                <form action="/details3" method="post">
-                    {% csrf_token %}
-                <input type="text" placeholder="00_Cluster" name="Project" />
-                <input type="submit" value="POST-searc">
-                </form>
-
                 {% for value in result %}
                     <p><a href="/Radar05/{{ value.0 }}">{{ value.0 }}</a></p>
                 {% endfor %}
-
-                <select>
-                    {% for value in result %}
-                    <option>{{ value.0 }}</option>
-                    {% endfor %}
-                </select>
             </div>
         </div>
     <div>

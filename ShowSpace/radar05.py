@@ -106,7 +106,7 @@ def radar_05_folder_info(folder_name):
     # folder_name = "08_report_summary"
     sql = "select folder_size,scan_date from ShowSpace_radar05 where folder_name=? order by scan_date"
     ans = query_data(sql, (folder_name,))
-    # print(ans)
+    print(ans)
     return ans
 
 
@@ -175,11 +175,14 @@ def get_radar05_details(name):
     # name = "00_Cluster"
     ans = []
     value = []
-    # sql = '''select DISTINCT type from ShowSpace_radar05_details '''
+    #sql = '''select DISTINCT type from ShowSpace_radar05_details '''
     # pprint.pprint(query_data(sql))
-    # types = query_data(sql)
-    types = ["MF4", "RIF", "AVI", "ZIP", "7Z", "others"]
+    #types = query_data(sql)
+    #file_Format = ("AVI", "ZIP", "MF4", "RIF", "7Z","others")
+    types = ["MF4","RIF","AVI","ZIP","7Z","others"]
     for type in types:
+        #if type[0] not in file_Format:
+            #continue
         sql = '''select folder_name,type,number,size,scan_date from ShowSpace_radar05_details
                     where folder_name=?  and type =? order by scan_date DESC'''
         i = query_data_one(sql, (name, type,))
@@ -206,6 +209,7 @@ def get_details(request, name):
     #         data.append([temp[1], temp[2], size, temp[4]])
     #         values1.append([temp[1], int(temp[3])])
     #         line = f.readline()
+
     data1, values1 = get_radar05_details(name)
 
     # data1 = data[-6:]
@@ -255,103 +259,7 @@ def get_details(request, name):
         label_opts=opts.LabelOpts(is_show=False),
         markpoint_opts=opts.MarkPointOpts(
             data=[opts.MarkPointItem(type_="max", name="max", symbol_size=70, symbol="pin")]
-        ),
-    )
-    )
-
-    return render(request, "ShowSpace/details.html", {"data": data1, "data2": c.render_embed(),
-                                                      "folder_name": name, "temp": d.render_embed()})
-
-
-def get_details2(request):
-    if not request.GET['Project'] or 'Project' not in request.GET  :
-        name = "00_Cluster"
-    else:
-        name = request.GET.get("Project")
-    data1, values1 = get_radar05_details(name)
-
-    c = (Pie(init_opts=opts.InitOpts(width="600px", height="320px"))
-        .add("", values1, center=["50%", "50%"], is_clockwise=False, radius=["30%", "60%"])
-        .set_global_opts(
-        legend_opts=opts.LegendOpts(type_="scroll", pos_right="85%", orient="vertical"),
-    )
-        .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%", color="#000000", font_size=13))
-        .set_colors(
-        ["#FF4500", "#FFA500", "#FFFF00", "#90EE90", "#48D1CC", "#87CEEB", "#9370DB"])
-    )
-
-    ans = radar_05_folder_info(name)
-    date = [ans[i][1] for i in range(len(ans))]
-    size = [round(ans[i][0] // 1024 // 1024 // 1024 / 1024, 2) for i in range(len(ans))]
-    d = (Line(init_opts=opts.InitOpts(width="1200px", height="300px"))
-        .set_global_opts(
-        tooltip_opts=opts.TooltipOpts(trigger="axis"),
-        xaxis_opts=opts.AxisOpts(type_="category", name="date"),
-        yaxis_opts=opts.AxisOpts(type_="value",
-                                 axistick_opts=opts.AxisTickOpts(is_show=True),
-                                 splitline_opts=opts.SplitLineOpts(is_show=True),
-                                 name="Size TB",
-                                 max_=int(max(size)) + 100,
-                                 min_=int(min(size)) - 100,
-                                 ))
-        .add_xaxis(xaxis_data=date)
-        .add_yaxis(
-        series_name="Folder " + name,
-        y_axis=size,
-        symbol="emptyCircle",
-        is_symbol_show=True,
-        label_opts=opts.LabelOpts(is_show=False),
-        markpoint_opts=opts.MarkPointOpts(
-            data=[opts.MarkPointItem(type_="max", name="max", symbol_size=70, symbol="pin")]
-        ),
-    )
-    )
-
-    return render(request, "ShowSpace/details.html", {"data": data1, "data2": c.render_embed(),
-                                                      "folder_name": name, "temp": d.render_embed()})
-
-
-def get_details3(request):
-    if not request.POST['Project'] or 'Project' not in request.POST:
-        name = "00_Cluster"
-    else:
-        name = request.POST.get("Project")
-    data1, values1 = get_radar05_details(name)
-
-    c = (Pie(init_opts=opts.InitOpts(width="600px", height="320px"))
-        .add("", values1, center=["50%", "50%"], is_clockwise=False, radius=["30%", "60%"])
-        .set_global_opts(
-        legend_opts=opts.LegendOpts(type_="scroll", pos_right="85%", orient="vertical"),
-    )
-        .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {d}%", color="#000000", font_size=13))
-        .set_colors(
-        ["#FF4500", "#FFA500", "#FFFF00", "#90EE90", "#48D1CC", "#87CEEB", "#9370DB"])
-    )
-
-    ans = radar_05_folder_info(name)
-    date = [ans[i][1] for i in range(len(ans))]
-    size = [round(ans[i][0] // 1024 // 1024 // 1024 / 1024, 2) for i in range(len(ans))]
-    d = (Line(init_opts=opts.InitOpts(width="1200px", height="300px"))
-        .set_global_opts(
-        tooltip_opts=opts.TooltipOpts(trigger="axis"),
-        xaxis_opts=opts.AxisOpts(type_="category", name="date"),
-        yaxis_opts=opts.AxisOpts(type_="value",
-                                 axistick_opts=opts.AxisTickOpts(is_show=True),
-                                 splitline_opts=opts.SplitLineOpts(is_show=True),
-                                 name="Size TB",
-                                 max_=int(max(size)) + 100,
-                                 min_=int(min(size)) - 100,
-                                 ))
-        .add_xaxis(xaxis_data=date)
-        .add_yaxis(
-        series_name="Folder " + name,
-        y_axis=size,
-        symbol="emptyCircle",
-        is_symbol_show=True,
-        label_opts=opts.LabelOpts(is_show=False),
-        markpoint_opts=opts.MarkPointOpts(
-            data=[opts.MarkPointItem(type_="max", name="max", symbol_size=70, symbol="pin")]
-        ),
+            ),
     )
     )
 

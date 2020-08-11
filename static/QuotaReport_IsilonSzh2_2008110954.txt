@@ -1,0 +1,29 @@
+#####################################################
+Processing location: Isilon Szh2
+
+1 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\EXT --> 17,5872 GB
+2 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\AUT --> 10359,6153 GB
+3 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CNMS\TEST --> 210,1915 GB
+4 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\EHW --> 3229,2291 GB
+5 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\cluster --> 751657,8702 GB
+6 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\ESW --> 1732,893 GB
+7 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\EVA --> 0,0034 GB
+8 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\000000 --> 0 GB
+9 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\000000 --> 0,0001 GB
+10 >> /ifs/Group/urmszh_i_2003_554 --> 0 GB
+11 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\JBA --> 7336,4258 GB
+12 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\05_Radar_ER --> 4441262,7528 GB
+13 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_APP --> 36686,8756 GB
+14 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AD\000000 --> 0 GB
+15 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Driving\System_Validation --> 8552,5734 GB
+16 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\PSM --> 101,9105 GB
+17 >> /ifs/Group/urmszh_i_2003_555 --> 0 GB
+18 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CNMS\000000 --> 0 GB
+19 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CNMS\PRJ --> 2,282 GB
+20 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\VSE --> 90,0395 GB
+21 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\AS\CNE --> 2847,8653 GB
+22 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Parking --> 950,1414 GB
+23 >> \\abtvdfs2.de.bosch.com\ismdfs\loc\szh\DA\Radar\04_Radar_ER --> 398494,5701 GB
+
+Calculated total used in Isilon Szh2 >> 5530,79 TB
+Overall used space Isilon Szh2 >> 81,719475463737%

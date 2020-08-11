@@ -1,1 +1,1 @@
-.\venv\Scripts\python.exe .\scan\scanScripts.py
+.\python\python.exe .\scan\scanScripts.py
