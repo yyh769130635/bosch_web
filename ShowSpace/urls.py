@@ -12,9 +12,9 @@ urlpatterns = [
     url(r"^Isilon1/$", isilon1.main),
     url(r"^Isilon2/$", isilon2.main),
     path('Radar05/<str:name>', radar05.get_details),
-    path("test/", search.search_form),
-    path("search", search.search),
     path('hello', radar05.get_method),
     path('hello2', radar05.post_method),
+    path("test/", search.search_form),
+    path("search/", search.search),
 
 ]
