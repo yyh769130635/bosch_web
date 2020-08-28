@@ -1,1 +1,1 @@
-.\python\python.exe manage.py runserver 127.0.0.1:9000
+.\venv\Scripts\python.exe manage.py runserver 127.0.0.1:9000
